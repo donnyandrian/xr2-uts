@@ -16,7 +16,7 @@ public class BezierScore : MonoBehaviour
     private const float _progressMin = 0.1f;
     private const float _progressMax = 1f;
 
-    private void Start()
+    void Start()
     {
         curve.ClearKeys();
         curve.AddKey(new Keyframe(0f, _progressMax, -2f, -2f, 0f, 0.25f));
@@ -26,7 +26,10 @@ public class BezierScore : MonoBehaviour
         scoreMax = Mathf.Max(scoreMax, scoreMin);
     }
 
-    public float GetScore(bool isCorrect)
+    public int GetCurrentRound() => _currentRound;
+    public float GetCurrentScore() => _currentScore;
+
+    public float CalculateTotalScore(bool isCorrect)
     {
         if (!isCorrect) _currentRound = 0;
 
@@ -43,7 +46,7 @@ public class BezierScore : MonoBehaviour
         _currentRound++;
         _currentScore += score;
 
-        return score;
+        return _currentScore;
     }
 
     public void ResetScore()

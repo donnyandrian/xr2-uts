@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
-public class ObectSpawner : MonoBehaviour
+public class ObjectSpawner : MonoBehaviour
 {
     [Header("Object To Spawn")]
     public int minObjectToSpawn = 10;
@@ -45,15 +47,13 @@ public class ObectSpawner : MonoBehaviour
 
         minPointToSpawn = Mathf.Clamp(minPointToSpawn, 1, pointsLength);
         maxPointToSpawn = Mathf.Clamp(maxPointToSpawn, minPointToSpawn, pointsLength);
-
-        StartCoroutine(SpawnObjects());
     }
 
     // Fisher-Yates Shuffle
     int[] GetUniquesRandom(int n, int min, int max)
     {
         var _rand = new Unity.Mathematics.Random((uint)System.DateTime.Now.Ticks);
-        
+
         int[] possibilities = Enumerable.Range(min, max - min).ToArray();
         int[] result = new int[n];
 
@@ -85,7 +85,7 @@ public class ObectSpawner : MonoBehaviour
         return result;
     }
 
-    IEnumerator SpawnObjects()
+    public async Awaitable<int[]> SpawnObjects(CancellationToken token)
     {
         Debug.Log("Start Spawning");
 
@@ -94,25 +94,29 @@ public class ObectSpawner : MonoBehaviour
         int[] pointIndicies = GetUniquesRandom(_rand.NextInt(minPointToSpawn, maxPointToSpawn), 0, points.Length);
         int[] objectIndicies = GetUniquesRandom(_rand.NextInt(minObjectKindToSpawn, maxObjectKindToSpawn), 0, objects.Length);
 
-        Debug.Log("ObjectIndicies: " + objectIndicies.Length.ToString());
-        Debug.Log("PointIndicies: " + pointIndicies.Length.ToString());
 
         // A dictionary where each point index holds a Queue of objects it needs to spawn
         Dictionary<int, Queue<int>> pointSpawningQueues = new();
-        foreach (int objectIndex in objectIndicies)
         {
-            int[] spawnPointIndicies = RandomEliminate(pointIndicies);
-            foreach (int pointIndex in spawnPointIndicies)
+            string _dbgObjectToSpawn = "Objects to Spawn:";
+            foreach (int objectIndex in objectIndicies)
             {
-                if (!pointSpawningQueues.ContainsKey(pointIndex))
-                    pointSpawningQueues[pointIndex] = new();
-
-                int objectCount = _rand.NextInt(minObjectToSpawn, maxObjectToSpawn);
-                for (int i = 0; i < objectCount; i++)
+                int[] spawnPointIndicies = RandomEliminate(pointIndicies);
+                foreach (int pointIndex in spawnPointIndicies)
                 {
-                    pointSpawningQueues[pointIndex].Enqueue(objectIndex);
+                    if (!pointSpawningQueues.ContainsKey(pointIndex))
+                        pointSpawningQueues[pointIndex] = new();
+
+                    int objectCount = _rand.NextInt(minObjectToSpawn, maxObjectToSpawn);
+                    for (int i = 0; i < objectCount; i++)
+                    {
+                        pointSpawningQueues[pointIndex].Enqueue(objectIndex);
+                    }
                 }
+
+                _dbgObjectToSpawn += " (" + GetSpice(objectIndex).spiceName + ")";
             }
+            Debug.Log(_dbgObjectToSpawn);
         }
 
         var spawnPauseDur = 1.0f / spawnSpeed;
@@ -143,10 +147,22 @@ public class ObectSpawner : MonoBehaviour
             // This creates the "all at once" visual effect.
             if (itemsRemaining)
             {
-                yield return new WaitForSeconds(spawnPauseDur);
+                // If the object is destroyed, 
+                // this will throw a TaskCanceledException and stop the loop.
+                // TaskCanceledException derives from OperationCanceledException.
+                await Awaitable.WaitForSecondsAsync(spawnPauseDur, token);
             }
         }
 
         Debug.Log("Done");
+
+        return objectIndicies;
+    }
+
+    public SpiceObject GetSpice(int index)
+    {
+        if (index < 0 || index >= objects.Length) { return null; }
+
+        return objects[index].GetComponent<SpiceObject>();
     }
 }
