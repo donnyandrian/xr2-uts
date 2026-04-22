@@ -21,18 +21,7 @@ public class SceneHub : MonoBehaviour
         }
     }
 
-    public void GoToHome()
-    {
-        StartCoroutine(LoadAsynchronously(homeSceneIndex));
-    }
-
-    public void GoToGame()
-    {
-        StartCoroutine(LoadAsynchronously(gameSceneIndex));
-    }
-
-    public void GoToLeaderboard()
-    {
-        StartCoroutine(LoadAsynchronously(leaderboardSceneIndex));
-    }
+    public void GoToHome() => StartCoroutine(LoadAsynchronously(homeSceneIndex));
+    public void GoToGame() => StartCoroutine(LoadAsynchronously(gameSceneIndex));
+    public void GoToLeaderboard() => StartCoroutine(LoadAsynchronously(leaderboardSceneIndex));
 }

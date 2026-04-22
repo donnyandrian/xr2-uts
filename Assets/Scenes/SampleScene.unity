@@ -691,6 +691,7 @@ GameObject:
   - component: {fileID: 355949475}
   - component: {fileID: 355949478}
   - component: {fileID: 355949477}
+  - component: {fileID: 355949479}
   m_Layer: 0
   m_Name: UJICOBA JAHE (4)
   m_TagString: Untagged
@@ -817,6 +818,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &355949479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355949471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb2373c05cf6264d8a5b4cba8cf1a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpiceObject
+  spiceName: Jahe
 --- !u!1 &399872697
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +844,7 @@ GameObject:
   - component: {fileID: 399872701}
   - component: {fileID: 399872704}
   - component: {fileID: 399872703}
+  - component: {fileID: 399872705}
   m_Layer: 0
   m_Name: UJICOBA JAHE (3)
   m_TagString: Untagged
@@ -956,6 +971,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &399872705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399872697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb2373c05cf6264d8a5b4cba8cf1a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpiceObject
+  spiceName: Jahe
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,6 +2011,7 @@ GameObject:
   - component: {fileID: 822361326}
   - component: {fileID: 822361330}
   - component: {fileID: 822361329}
+  - component: {fileID: 822361331}
   m_Layer: 0
   m_Name: UJICOBA JAHE (5)
   m_TagString: Untagged
@@ -2109,6 +2138,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &822361331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822361323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb2373c05cf6264d8a5b4cba8cf1a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpiceObject
+  spiceName: Jahe
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,6 +2242,9 @@ GameObject:
   - component: {fileID: 855821326}
   - component: {fileID: 855821325}
   - component: {fileID: 855821327}
+  - component: {fileID: 855821328}
+  - component: {fileID: 855821330}
+  - component: {fileID: 855821329}
   m_Layer: 0
   m_Name: ScriptManager
   m_TagString: Untagged
@@ -2274,6 +2319,68 @@ MonoBehaviour:
   homeSceneIndex: 0
   gameSceneIndex: 1
   leaderboardSceneIndex: 2
+--- !u!114 &855821328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855821324}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99f23a1d15ed3f74687f8e8e20ef5be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TimerManager
+  duration: 180
+  timerText: {fileID: 0}
+  OnTimerFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 855821328}
+        m_TargetAssemblyTypeName: TimerManager, Assembly-CSharp
+        m_MethodName: FreezeGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &855821329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855821324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb4690649d9d934da1927698a7d6e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BezierScore
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  totalRound: 100
+  scoreMin: 1
+  scoreMax: 1000
+--- !u!114 &855821330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855821324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba91e4f0d3d20b46b48116956e55210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestManager
 --- !u!1 &881167476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2806,6 +2913,7 @@ GameObject:
   - component: {fileID: 1115181860}
   - component: {fileID: 1115181863}
   - component: {fileID: 1115181862}
+  - component: {fileID: 1115181864}
   m_Layer: 0
   m_Name: UJICOBA JAHE (2)
   m_TagString: Untagged
@@ -2932,6 +3040,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1115181864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115181856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb2373c05cf6264d8a5b4cba8cf1a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpiceObject
+  spiceName: Jahe
 --- !u!1 &1139067509 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6981037562058695331, guid: b6d9e26087c61114485b9b1554439ad8, type: 3}
@@ -3679,6 +3800,7 @@ GameObject:
   - component: {fileID: 1376509156}
   - component: {fileID: 1376509159}
   - component: {fileID: 1376509158}
+  - component: {fileID: 1376509160}
   m_Layer: 0
   m_Name: UJICOBA JAHE (1)
   m_TagString: Untagged
@@ -3805,6 +3927,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1376509160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376509152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb2373c05cf6264d8a5b4cba8cf1a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpiceObject
+  spiceName: Jahe
 --- !u!1 &1388061694
 GameObject:
   m_ObjectHideFlags: 0
@@ -4385,6 +4520,7 @@ GameObject:
   - component: {fileID: 1593119387}
   - component: {fileID: 1593119390}
   - component: {fileID: 1593119389}
+  - component: {fileID: 1593119391}
   m_Layer: 0
   m_Name: UJICOBA JAHE
   m_TagString: Untagged
@@ -4511,6 +4647,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1593119391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593119384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb2373c05cf6264d8a5b4cba8cf1a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpiceObject
+  spiceName: Jahe
 --- !u!1001 &1612265088
 PrefabInstance:
   m_ObjectHideFlags: 0

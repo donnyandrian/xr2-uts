@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class ObectSpawner : MonoBehaviour
 {
+    [Header("Object To Spawn")]
     public int minObjectToSpawn = 10;
     public int maxObjectToSpawn = 10;
 
+    [Header("Object Kind To Spawn")]
     public int minObjectKindToSpawn = 1;
     public int maxObjectKindToSpawn = 1;
 
+    [Header("Spawn Point")]
     public int minPointToSpawn = 1;
     public int maxPointToSpawn = 1;
-
     public float spawnSpeed = 8.0f;
 
+    [Header("Target")]
     public GameObject[] objects;
     public Transform[] points;
 
