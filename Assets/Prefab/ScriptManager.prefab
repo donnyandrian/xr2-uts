@@ -1,0 +1,157 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &910389773412857815
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7241470818702302698}
+  - component: {fileID: 2806524868539144505}
+  - component: {fileID: 1592487514046844}
+  - component: {fileID: 6119384390314142363}
+  - component: {fileID: 8166317121689777936}
+  - component: {fileID: 1010154958395753404}
+  m_Layer: 0
+  m_Name: ScriptManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7241470818702302698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910389773412857815}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.19, z: -5.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2806524868539144505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910389773412857815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab8aa8a6c8203b429e626686b732823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObectSpawner
+  minObjectToSpawn: 2
+  maxObjectToSpawn: 10
+  minObjectKindToSpawn: 1
+  maxObjectKindToSpawn: 6
+  minPointToSpawn: 3
+  maxPointToSpawn: 10
+  spawnSpeed: 10
+  objects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  points:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &1592487514046844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910389773412857815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f592c2bbded704c88ac41069f8f60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneHub
+  homeSceneIndex: 0
+  gameSceneIndex: 1
+  leaderboardSceneIndex: 2
+--- !u!114 &6119384390314142363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910389773412857815}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99f23a1d15ed3f74687f8e8e20ef5be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TimerManager
+  duration: 180
+  timerText: {fileID: 0}
+  OnTimerFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6119384390314142363}
+        m_TargetAssemblyTypeName: TimerManager, Assembly-CSharp
+        m_MethodName: FreezeGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8166317121689777936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910389773412857815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba91e4f0d3d20b46b48116956e55210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestManager
+  spawner: {fileID: 2806524868539144505}
+  bezierScore: {fileID: 1010154958395753404}
+  roundGroups:
+  - from: 0
+    objectKindToSpawn: 1
+--- !u!114 &1010154958395753404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910389773412857815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb4690649d9d934da1927698a7d6e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BezierScore
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  totalRound: 100
+  scoreMin: 1
+  scoreMax: 1000

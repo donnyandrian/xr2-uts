@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -22,6 +23,7 @@ public class QuestManager : MonoBehaviour
     [Header("Setup")]
     public ObjectSpawner spawner;
     public BezierScore bezierScore;
+    public TMP_Text scoreText;
 
     [Header("Round Range Group")]
     public RoundRangeGroup[] roundGroups;
@@ -102,5 +104,11 @@ public class QuestManager : MonoBehaviour
         {
             Debug.Log("Spawning was cancelled because the object was destroyed.");
         }
+    }
+
+    public void UpdateScore(bool isCorrect)
+    {
+        var currentScore = bezierScore.CalculateTotalScore(isCorrect);
+        scoreText.text = "Score: " + currentScore.ToString();
     }
 }

@@ -85,8 +85,21 @@ public class ObjectSpawner : MonoBehaviour
         return result;
     }
 
+    public void ClearSpawnPoints()
+    {
+        foreach (var point in points)
+        {
+            for (int i = point.childCount - 1; i >= 0; i--)
+            {
+                Destroy(point.GetChild(i).gameObject);
+            }
+        }
+    }
+
     public async Awaitable<int[]> SpawnObjects(CancellationToken token)
     {
+        ClearSpawnPoints();
+
         Debug.Log("Start Spawning");
 
         var _rand = new Unity.Mathematics.Random((uint)System.DateTime.Now.Ticks);
