@@ -106,9 +106,10 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void UpdateScore(bool isCorrect)
+    public async void UpdateScore(bool isCorrect)
     {
         var currentScore = bezierScore.CalculateTotalScore(isCorrect);
         scoreText.text = "Score: " + currentScore.ToString();
+        await GenerateQuest();
     }
 }
