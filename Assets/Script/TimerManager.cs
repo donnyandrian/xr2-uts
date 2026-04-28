@@ -58,7 +58,7 @@ public class TimerManager : MonoBehaviour
             timeStr = time.ToString(@"ss\:ff");
         }
 
-        Debug.Log(timeStr);
+        //Debug.Log(timeStr);
         timerText.text = timeStr;
     }
 

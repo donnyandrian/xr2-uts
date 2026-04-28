@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 [System.Serializable]
 public class RoundRangeGroup
@@ -24,9 +25,14 @@ public class QuestManager : MonoBehaviour
     public ObjectSpawner spawner;
     public BezierScore bezierScore;
     public TMP_Text scoreText;
+    public DroppedSpices droppedSpices;
+    public SocketObjectGetter socket;
+    public ResetTransform plate;
 
     [Header("Round Range Group")]
     public RoundRangeGroup[] roundGroups;
+
+    private SpiceObject[] target;
 
     async void Start()
     {
@@ -93,10 +99,14 @@ public class QuestManager : MonoBehaviour
             int[] objectIndicies = await spawner.SpawnObjects(destroyCancellationToken);
             int[] quest = RandomRetrive(objectIndicies, GetObjectKindCount());
 
+            target = new SpiceObject[quest.Length];
+
             string _dbgQuestObjects = "Quest Objects:";
-            foreach (int i in quest)
+            for (int i = 0; i < quest.Length; i++)
             {
-                _dbgQuestObjects += " (" + spawner.GetSpice(i).spiceName + ")";
+                var spice = spawner.GetSpice(quest[i]);
+                target[i] = spice;
+                _dbgQuestObjects += " (" + spice.spiceName + ")";
             }
             Debug.Log(_dbgQuestObjects);
         }
@@ -106,10 +116,47 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public async void UpdateScore(bool isCorrect)
+    public async void UpdateScore()
     {
+        bool isCorrect = true;
+
+        Array.Sort(target, StringComparer.OrdinalIgnoreCase);
+        droppedSpices.spices.Sort((a, b) => StringComparer.OrdinalIgnoreCase.Compare(a.spiceName, b.spiceName));
+
+        if (droppedSpices.spices.Count <= 0 || droppedSpices.spices.Count != target.Length)
+        {
+            isCorrect = false;
+        }
+        else if (droppedSpices.spices.Count == target.Length)
+        {
+            for (int i = 0; i < target.Length; i++)
+            {
+                if (target[i].spiceName != droppedSpices.spices[i].spiceName)
+                {
+                    isCorrect = false;
+                    break;
+                }
+            }
+        }
+
+        ClearSelected();
+
         var currentScore = bezierScore.CalculateTotalScore(isCorrect);
         scoreText.text = "Score: " + currentScore.ToString();
         await GenerateQuest();
+    }
+
+    public void ClearSelected()
+    {
+        droppedSpices.spices.Clear();
+
+        for (int i = socket.interacted.Count - 1; i >= 0; i--)
+        {
+            Destroy(socket.interacted[i].gameObject);
+        }
+
+        socket.interacted.Clear();
+
+        plate.ResetToInitialState();
     }
 }
