@@ -52,8 +52,6 @@ public class SocketObjectGetter : MonoBehaviour
         obj.GetComponent<Rigidbody>().isKinematic = false;
         obj.GetComponent<BoxCollider>().enabled = true;
 
-        if (droppedSpices.isLock) return;
-
         var spice = obj.GetComponent<SpiceObject>();
         Debug.Log("Object removed: " + spice.spiceName);
         droppedSpices.spices.Remove(spice);

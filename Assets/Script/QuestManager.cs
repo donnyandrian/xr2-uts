@@ -127,10 +127,8 @@ public class QuestManager : MonoBehaviour
         _isProcessingScore = true;
         try
         {
-            droppedSpices.isLock = true;
             bool isCorrect = IsCorrect();
             Debug.Log("Is correct: " + isCorrect.ToString());
-            droppedSpices.isLock = false;
 
             ClearSelected();
 
