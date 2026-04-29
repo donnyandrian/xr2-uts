@@ -25,14 +25,17 @@ public class QuestManager : MonoBehaviour
     public ObjectSpawner spawner;
     public BezierScore bezierScore;
     public TMP_Text scoreText;
+    public TMP_Text taskText;
     public DroppedSpices droppedSpices;
     public SocketObjectGetter socket;
     public ResetTransform plate;
+    public Leaderboard leaderboard;
 
     [Header("Round Range Group")]
     public RoundRangeGroup[] roundGroups;
 
     private SpiceObject[] target;
+    private bool _isProcessingScore = false;
 
     async void Start()
     {
@@ -102,10 +105,12 @@ public class QuestManager : MonoBehaviour
             target = new SpiceObject[quest.Length];
 
             string _dbgQuestObjects = "Quest Objects:";
+            taskText.text = "";
             for (int i = 0; i < quest.Length; i++)
             {
                 var spice = spawner.GetSpice(quest[i]);
                 target[i] = spice;
+                taskText.text += spice.spiceName + Environment.NewLine;
                 _dbgQuestObjects += " (" + spice.spiceName + ")";
             }
             Debug.Log(_dbgQuestObjects);
@@ -118,14 +123,38 @@ public class QuestManager : MonoBehaviour
 
     public async void UpdateScore()
     {
-        bool isCorrect = true;
+        if (_isProcessingScore) return;
+        _isProcessingScore = true;
+        try
+        {
+            droppedSpices.isLock = true;
+            bool isCorrect = IsCorrect();
+            Debug.Log("Is correct: " + isCorrect.ToString());
+            droppedSpices.isLock = false;
 
+            ClearSelected();
+
+            var currentScore = bezierScore.CalculateTotalScore(isCorrect);
+            scoreText.text = "Score: " + currentScore.ToString();
+            await GenerateQuest();
+        }
+        finally
+        {
+            _isProcessingScore = false;
+        }
+    }
+
+    private bool IsCorrect()
+    {
         Array.Sort(target, StringComparer.OrdinalIgnoreCase);
         droppedSpices.spices.Sort((a, b) => StringComparer.OrdinalIgnoreCase.Compare(a.spiceName, b.spiceName));
 
         if (droppedSpices.spices.Count <= 0 || droppedSpices.spices.Count != target.Length)
         {
-            isCorrect = false;
+            Debug.Log("111111111111111111111111111111111111111111111111");
+            Debug.Log(droppedSpices.spices.Count);
+            Debug.Log(target.Length);
+            return false;
         }
         else if (droppedSpices.spices.Count == target.Length)
         {
@@ -133,17 +162,13 @@ public class QuestManager : MonoBehaviour
             {
                 if (target[i].spiceName != droppedSpices.spices[i].spiceName)
                 {
-                    isCorrect = false;
-                    break;
+                    Debug.Log("22222222222222222222222222222222222222222222222");
+                    return false;
                 }
             }
         }
 
-        ClearSelected();
-
-        var currentScore = bezierScore.CalculateTotalScore(isCorrect);
-        scoreText.text = "Score: " + currentScore.ToString();
-        await GenerateQuest();
+        return true;
     }
 
     public void ClearSelected()
@@ -158,5 +183,11 @@ public class QuestManager : MonoBehaviour
         socket.interacted.Clear();
 
         plate.ResetToInitialState();
+    }
+
+    public void SaveScore()
+    {
+        leaderboard.AddEntry(new(bezierScore.GetCurrentScore(), DateTime.Now));
+        leaderboard.SaveData();
     }
 }

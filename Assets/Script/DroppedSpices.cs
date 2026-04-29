@@ -5,6 +5,7 @@ using UnityEngine;
 public class DroppedSpices : MonoBehaviour
 {
     public List<SpiceObject> spices;
+    public bool isLock = false;
 
     private void Start()
     {

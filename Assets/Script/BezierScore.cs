@@ -16,6 +16,8 @@ public class BezierScore : MonoBehaviour
     private const float _progressMin = 0.1f;
     private const float _progressMax = 1f;
 
+    public string sample;
+
     void Start()
     {
         curve.ClearKeys();
@@ -34,7 +36,7 @@ public class BezierScore : MonoBehaviour
         if (!isCorrect) _currentRound = 0;
 
         // 1 - 0.1
-        var progress = curve.Evaluate(Mathf.Clamp01(_currentRound / totalRound));
+        var progress = curve.Evaluate(Mathf.Clamp01(_currentRound / (float)totalRound));
 
         // Remap progress to 1000 - 1
         const float progressRange = _progressMax - _progressMin;
