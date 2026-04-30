@@ -17,7 +17,7 @@ public class LeaderboardPanel : MonoBehaviour
             string scoreText;
             if (entry != null)
             {
-                scoreText = entry.score.ToString();
+                scoreText = Mathf.Round(entry.score).ToString();
             }
             else scoreText = "0.0";
 

@@ -103,6 +103,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kayu_Manis
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4d96c0ce3029eb24ea3da90ac3d5e8f4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3515717276090252278, guid: 4d96c0ce3029eb24ea3da90ac3d5e8f4, type: 3}
@@ -200,7 +204,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &3422641421826990071
 MonoBehaviour:
   m_ObjectHideFlags: 0

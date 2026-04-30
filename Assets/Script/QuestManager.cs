@@ -24,6 +24,7 @@ public class QuestManager : MonoBehaviour
     [Header("Setup")]
     public ObjectSpawner spawner;
     public BezierScore bezierScore;
+    public TMP_Text levelText;
     public TMP_Text scoreText;
     public TMP_Text taskText;
     public DroppedSpices droppedSpices;
@@ -39,6 +40,7 @@ public class QuestManager : MonoBehaviour
 
     async void Start()
     {
+        UpdateLevelScoreText(bezierScore.GetCurrentScore());
         await GenerateQuest();
     }
 
@@ -133,13 +135,19 @@ public class QuestManager : MonoBehaviour
             ClearSelected();
 
             var currentScore = bezierScore.CalculateTotalScore(isCorrect);
-            scoreText.text = "Score: " + currentScore.ToString();
+            UpdateLevelScoreText(currentScore);
             await GenerateQuest();
         }
         finally
         {
             _isProcessingScore = false;
         }
+    }
+
+    private void UpdateLevelScoreText(float currentScore)
+    {
+        levelText.text = $"Round {bezierScore.GetCurrentRound() + 1}";
+        scoreText.text = "Score: " + Mathf.Round(currentScore).ToString();
     }
 
     private bool IsCorrect()
