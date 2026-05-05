@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using static Unity.VisualScripting.Member;
 
 [System.Serializable]
@@ -34,6 +35,10 @@ public class QuestManager : MonoBehaviour
 
     [Header("Round Range Group")]
     public RoundRangeGroup[] roundGroups;
+
+    [Header("Events")]
+    public UnityEvent OnCorrectAnswer;
+    public UnityEvent OnWrongAnswer;
 
     private SpiceObject[] target;
     private bool _isProcessingScore = false;
@@ -130,6 +135,8 @@ public class QuestManager : MonoBehaviour
         try
         {
             bool isCorrect = IsCorrect();
+            if (isCorrect) OnCorrectAnswer?.Invoke();
+            else OnWrongAnswer?.Invoke();
             Debug.Log("Is correct: " + isCorrect.ToString());
 
             ClearSelected();
